@@ -21,3 +21,21 @@
     "Segoe UI", "Tahoma", "Geeza Pro", "Noto Sans Arabic", "Noto Naskh Arabic",
     "Arial", system-ui, sans-serif;
 }
+
+/*
+ * Naive UI / VueUseable VBinder teleports popper menus to <body>. Under
+ * `dir="rtl"`, the follower container inherits RTL direction, which causes
+ * absolutely positioned poppers (with no explicit left/right) to anchor to the
+ * inline-start edge — i.e. the right edge of the viewport — instead of the
+ * physical-left origin assumed by the popper's translate() offset. The result
+ * is that dropdowns appear on the far right of the screen with their
+ * translateX value relative to the viewport's right edge.
+ *
+ * Force the binder follower container back to LTR direction so that absolute
+ * positioning resolves against the physical-left origin. The popper content
+ * inside (e.g. `.n-popover--rtl`) keeps its own RTL direction class, so the
+ * menu items still render right-to-left.
+ */
+.v-binder-follower-container {
+  direction: ltr;
+}
