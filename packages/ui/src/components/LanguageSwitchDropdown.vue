@@ -2,7 +2,7 @@
   <NDropdown
     :options="dropdownOptions"
     @select="handleLanguageSelect"
-    placement="bottom-end"
+    :placement="dropdownPlacement"
     trigger="click"
   >
     <NButton 
@@ -59,7 +59,7 @@ import { computed, inject, type Ref } from 'vue'
 
 import { useI18n } from 'vue-i18n'
 import { NButton, NDropdown, type DropdownOption } from 'naive-ui'
-import { i18n, type SupportedLocale } from '../plugins/i18n'
+import { i18n, isRtlLocale, type SupportedLocale } from '../plugins/i18n'
 import { UI_SETTINGS_KEYS } from '@prompt-optimizer/core'
 import { usePreferences } from '../composables/storage/usePreferenceManager'
 import type { AppServices } from '../types/services'
@@ -100,6 +100,14 @@ const availableLanguages = computed<LanguageOption[]>(() => [
 
 // 当前语言计算属性
 const currentLocale = computed(() => i18n.global.locale.value as SupportedLocale)
+
+// Naive UI's popper does not flip the inline-end edge under `dir="rtl"` for
+// teleported menus, so the menu would otherwise drift to the opposite side of
+// the viewport. Pick the physical edge that matches the trigger in each
+// direction so the menu always opens beside the trigger.
+const dropdownPlacement = computed<'bottom-end' | 'bottom-start'>(() =>
+  isRtlLocale(currentLocale.value) ? 'bottom-start' : 'bottom-end'
+)
 
 const currentLanguageLabel = computed(() => {
   const current = availableLanguages.value.find(lang => lang.locale === currentLocale.value)
