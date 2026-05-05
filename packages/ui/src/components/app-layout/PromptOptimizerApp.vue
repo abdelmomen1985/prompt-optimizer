@@ -15,6 +15,7 @@
         :theme="naiveTheme"
         :theme-overrides="themeOverrides"
         :hljs="hljsInstance"
+        :rtl="naiveRtlConfig"
     >
         <div v-if="isInitializing" class="loading-container">
             <div class="spinner"></div>
@@ -310,7 +311,8 @@ import {
 } from '../../composables'
 
 // i18n functions
-import { initializeI18nWithStorage, setI18nServices } from '../../plugins/i18n'
+import { initializeI18nWithStorage, setI18nServices, isRtlLocale, i18n as i18nInstance } from '../../plugins/i18n'
+import { naiveRtl } from '../../config/naive-rtl'
 
 // Pinia functions
 import { setPiniaServices, getPiniaServices } from '../../plugins/pinia'
@@ -709,6 +711,11 @@ const isCompareMode = ref(true);
 
 // Naive UI 主题配置
 const { naiveTheme, themeOverrides, initTheme } = useNaiveTheme();
+
+// Naive UI RTL 配置 - 仅在 RTL locale 下注入 RTL 样式列表
+const naiveRtlConfig = computed(() =>
+    isRtlLocale(String(i18nInstance.global.locale.value || '')) ? naiveRtl : undefined
+);
 
 // 初始化主题系统
 if (typeof window !== "undefined") {

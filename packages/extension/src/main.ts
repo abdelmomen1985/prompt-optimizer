@@ -1,5 +1,5 @@
 import { createApp, watch } from 'vue'
-import { installI18nOnly, installPinia, i18n, router } from '@prompt-optimizer/ui'
+import { installI18nOnly, installPinia, i18n, router, isRtlLocale } from '@prompt-optimizer/ui'
 import App from './App.vue'
 
 import './style.css'
@@ -16,8 +16,14 @@ if (typeof document !== 'undefined') {
   const syncDocumentTitle = () => {
     document.title = i18n.global.t('common.appName')
     const currentLocale = String(i18n.global.locale.value || '')
-    const htmlLang = currentLocale.startsWith('zh') ? 'zh' : 'en'
+    let htmlLang = 'en'
+    if (currentLocale.startsWith('zh')) htmlLang = 'zh'
+    else if (currentLocale.startsWith('ar')) htmlLang = 'ar'
     document.documentElement.setAttribute('lang', htmlLang)
+    document.documentElement.setAttribute(
+      'dir',
+      isRtlLocale(currentLocale) ? 'rtl' : 'ltr'
+    )
   }
 
   syncDocumentTitle()

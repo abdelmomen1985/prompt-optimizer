@@ -4,9 +4,11 @@ import { UI_SETTINGS_KEYS } from '@prompt-optimizer/core'
 import zhCN from '../../../src/i18n/locales/zh-CN'
 import zhTW from '../../../src/i18n/locales/zh-TW'
 import enUS from '../../../src/i18n/locales/en-US'
+import arSA from '../../../src/i18n/locales/ar-SA'
 import {
   i18n,
   initializeI18nWithStorage,
+  isRtlLocale,
   resolveDefaultLocale,
   sanitizeSupportedLocale,
   setI18nServices,
@@ -47,11 +49,27 @@ describe('i18n bootstrap helpers', () => {
     expect(sanitizeSupportedLocale('zh-CN')).toBe('zh-CN')
     expect(sanitizeSupportedLocale('zh-TW')).toBe('zh-TW')
     expect(sanitizeSupportedLocale('en-US')).toBe('en-US')
+    expect(sanitizeSupportedLocale('ar-SA')).toBe('ar-SA')
   })
 
   it('normalizes legacy short locale values', () => {
     expect(sanitizeSupportedLocale('zh')).toBe('zh-CN')
     expect(sanitizeSupportedLocale('en')).toBe('en-US')
+    expect(sanitizeSupportedLocale('ar')).toBe('ar-SA')
+  })
+
+  it('maps Arabic browser languages to ar-SA', () => {
+    expect(resolveDefaultLocale('ar')).toBe('ar-SA')
+    expect(resolveDefaultLocale('ar-EG')).toBe('ar-SA')
+    expect(resolveDefaultLocale('ar_SA')).toBe('ar-SA')
+  })
+
+  it('flags Arabic locales as RTL', () => {
+    expect(isRtlLocale('ar-SA')).toBe(true)
+    expect(isRtlLocale('en-US')).toBe(false)
+    expect(isRtlLocale('zh-CN')).toBe(false)
+    expect(isRtlLocale(null)).toBe(false)
+    expect(isRtlLocale(undefined)).toBe(false)
   })
 
   it('falls back to en-US for unsupported saved locales', () => {
@@ -104,10 +122,12 @@ describe('i18n bootstrap helpers', () => {
       'zh-CN': '简体中文',
       'zh-TW': '繁體中文',
       'en-US': 'English',
+      'ar-SA': 'العربية',
     }
 
     expect(zhCN.settings.languageSwitcher.languages).toEqual(expected)
     expect(zhTW.settings.languageSwitcher.languages).toEqual(expected)
     expect(enUS.settings.languageSwitcher.languages).toEqual(expected)
+    expect(arSA.settings.languageSwitcher.languages).toEqual(expected)
   })
 })

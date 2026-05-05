@@ -1,0 +1,41 @@
+/*
+ * RTL (right-to-left) overrides.
+ *
+ * The RTL layout is opt-in: <html dir="rtl"> is set by the host apps when an
+ * RTL locale (e.g. Arabic) is selected. Most layout flips are handled
+ * automatically by the browser (e.g. flex-row, inline-start margins) and by
+ * Naive UI's RTL config. Tailwind v4 also uses CSS logical properties for
+ * spacing utilities, so they swap on their own under `dir="rtl"`. This file
+ * therefore stays minimal and only adjusts presentational properties that do
+ * NOT follow the document direction automatically.
+ */
+
+[dir="rtl"] body,
+[dir="rtl"] {
+  text-align: start;
+}
+
+/* Apply Arabic-friendly system fonts when the document is RTL. */
+[dir="rtl"] {
+  font-family:
+    "Segoe UI", "Tahoma", "Geeza Pro", "Noto Sans Arabic", "Noto Naskh Arabic",
+    "Arial", system-ui, sans-serif;
+}
+
+/*
+ * Naive UI / VueUseable VBinder teleports popper menus to <body>. Under
+ * `dir="rtl"`, the follower container inherits RTL direction, which causes
+ * absolutely positioned poppers (with no explicit left/right) to anchor to the
+ * inline-start edge — i.e. the right edge of the viewport — instead of the
+ * physical-left origin assumed by the popper's translate() offset. The result
+ * is that dropdowns appear on the far right of the screen with their
+ * translateX value relative to the viewport's right edge.
+ *
+ * Force the binder follower container back to LTR direction so that absolute
+ * positioning resolves against the physical-left origin. The popper content
+ * inside (e.g. `.n-popover--rtl`) keeps its own RTL direction class, so the
+ * menu items still render right-to-left.
+ */
+.v-binder-follower-container {
+  direction: ltr;
+}
