@@ -1,0 +1,88 @@
+import {
+  unstableAlertRtl,
+  unstableAvatarGroupRtl,
+  unstableBadgeRtl,
+  unstableButtonGroupRtl,
+  unstableButtonRtl,
+  unstableCardRtl,
+  unstableCheckboxRtl,
+  unstableCollapseRtl,
+  unstableCollapseTransitionRtl,
+  unstableDataTableRtl,
+  unstableDialogRtl,
+  unstableDrawerRtl,
+  unstableDynamicInputRtl,
+  unstableFlexRtl,
+  unstableInputNumberRtl,
+  unstableInputOtpRtl,
+  unstableInputRtl,
+  unstableListRtl,
+  unstableMessageRtl,
+  unstableNotificationRtl,
+  unstablePageHeaderRtl,
+  unstablePaginationRtl,
+  unstablePopoverRtl,
+  unstableRadioRtl,
+  unstableRowRtl,
+  unstableScrollbarRtl,
+  unstableSelectRtl,
+  unstableSpaceRtl,
+  unstableStatisticRtl,
+  unstableStepsRtl,
+  unstableTableRtl,
+  unstableTagRtl,
+  unstableThingRtl,
+  unstableTreeRtl,
+  unstableTreeSelectRtl,
+  unstableUploadsRtl,
+} from 'naive-ui'
+import type { ConfigProviderProps } from 'naive-ui'
+
+type NaiveRtlProp = NonNullable<ConfigProviderProps['rtl']>
+
+/**
+ * Naive UI RTL configuration list. Pass this to NConfigProvider's `rtl` prop
+ * when the active locale is right-to-left (e.g. Arabic).
+ *
+ * The `unstable*Rtl` exports are objects shaped like RtlItem; we cast through
+ * `unknown` because the public type from naive-ui pins `name` to keys of
+ * `GlobalThemeWithoutCommon`, while the runtime values use plain strings.
+ */
+export const naiveRtl = ([
+  unstableAlertRtl,
+  unstableAvatarGroupRtl,
+  unstableBadgeRtl,
+  unstableButtonGroupRtl,
+  unstableButtonRtl,
+  unstableCardRtl,
+  unstableCheckboxRtl,
+  unstableCollapseRtl,
+  unstableCollapseTransitionRtl,
+  unstableDataTableRtl,
+  unstableDialogRtl,
+  unstableDrawerRtl,
+  unstableDynamicInputRtl,
+  unstableFlexRtl,
+  unstableInputNumberRtl,
+  unstableInputOtpRtl,
+  unstableInputRtl,
+  unstableListRtl,
+  unstableMessageRtl,
+  unstableNotificationRtl,
+  unstablePageHeaderRtl,
+  unstablePaginationRtl,
+  unstablePopoverRtl,
+  unstableRadioRtl,
+  unstableRowRtl,
+  unstableScrollbarRtl,
+  unstableSelectRtl,
+  unstableSpaceRtl,
+  unstableStatisticRtl,
+  unstableStepsRtl,
+  unstableTableRtl,
+  unstableTagRtl,
+  unstableThingRtl,
+  unstableTreeRtl,
+  unstableTreeSelectRtl,
+  unstableUploadsRtl,
+] as unknown) as NaiveRtlProp

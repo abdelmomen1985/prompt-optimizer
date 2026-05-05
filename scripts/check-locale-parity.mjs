@@ -155,7 +155,7 @@ function getLocaleMessage(locale) {
 
 function main() {
   const baseLocale = 'en-US'
-  const otherLocales = ['zh-CN', 'zh-TW']
+  const otherLocales = ['zh-CN', 'zh-TW', 'ar-SA']
   const baseMessages = getLocaleMessage(baseLocale)
   let hasError = false
 

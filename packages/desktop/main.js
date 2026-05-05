@@ -113,7 +113,7 @@ let storageProvider; // 全局存储提供器引用，用于退出时保存数�
 // 我们在主进程中自行弹出菜单，并用该 locale 来决定菜单文案。
 let uiLocale = null;
 
-const SUPPORTED_UI_LOCALES = new Set(['zh-CN', 'zh-TW', 'en-US']);
+const SUPPORTED_UI_LOCALES = new Set(['zh-CN', 'zh-TW', 'en-US', 'ar-SA']);
 
 function normalizeUiLocale(locale) {
   if (typeof locale !== 'string' || !locale) return null;
@@ -126,6 +126,7 @@ function normalizeUiLocale(locale) {
     return 'zh-CN';
   }
   if (lower.startsWith('en')) return 'en-US';
+  if (lower.startsWith('ar')) return 'ar-SA';
   return null;
 }
 
@@ -165,6 +166,14 @@ const CONTEXT_MENU_LABELS = {
     copy: 'Copy',
     paste: 'Paste',
     selectAll: 'Select All',
+  },
+  'ar-SA': {
+    undo: 'تراجع',
+    redo: 'إعادة',
+    cut: 'قص',
+    copy: 'نسخ',
+    paste: 'لصق',
+    selectAll: 'تحديد الكل',
   },
 };
 

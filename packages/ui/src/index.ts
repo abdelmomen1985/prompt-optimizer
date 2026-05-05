@@ -19,6 +19,7 @@
 import "./styles/index.css";
 import "./styles/scrollbar.css";
 import "./styles/common.css";
+import "./styles/rtl.css";
 // 已移除: import './styles/theme.css' - 完全使用Naive UI主题系统
 
 // 导出插件
@@ -28,7 +29,12 @@ export {
   initializeI18nWithStorage,
   setI18nServices,
   i18n,
+  isRtlLocale,
+  sanitizeSupportedLocale,
+  SUPPORTED_LOCALES,
+  DEFAULT_LOCALE,
 } from "./plugins/i18n";
+export type { SupportedLocale } from "./plugins/i18n";
 
 export { pinia, installPinia, setPiniaServices } from "./plugins/pinia";
 

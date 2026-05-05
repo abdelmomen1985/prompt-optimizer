@@ -90,6 +90,11 @@ const availableLanguages = computed<LanguageOption[]>(() => [
     key: 'en-US',
     label: t('settings.languageSwitcher.languages.en-US'),
     locale: 'en-US'
+  },
+  {
+    key: 'ar-SA',
+    label: t('settings.languageSwitcher.languages.ar-SA'),
+    locale: 'ar-SA'
   }
 ])
 
@@ -112,7 +117,7 @@ const dropdownOptions = computed<DropdownOption[]>(() => {
 })
 
 const isSupportedLocale = (value: unknown): value is SupportedLocale =>
-  value === 'zh-CN' || value === 'zh-TW' || value === 'en-US'
+  value === 'zh-CN' || value === 'zh-TW' || value === 'en-US' || value === 'ar-SA'
 
 // 处理语言选择
 const handleLanguageSelect = async (key: string) => {

@@ -4,6 +4,7 @@ import { createI18n } from "vue-i18n";
 import zhCN from "../i18n/locales/zh-CN";
 import zhTW from "../i18n/locales/zh-TW";
 import enUS from "../i18n/locales/en-US";
+import arSA from "../i18n/locales/ar-SA";
 import {
   getPreference,
   setPreference,
@@ -11,10 +12,17 @@ import {
 import { UI_SETTINGS_KEYS } from "@prompt-optimizer/core";
 import type { AppServices } from "../types/services";
 
-export type SupportedLocale = "zh-CN" | "zh-TW" | "en-US";
+export type SupportedLocale = "zh-CN" | "zh-TW" | "en-US" | "ar-SA";
 
 export const DEFAULT_LOCALE: SupportedLocale = "en-US";
-export const SUPPORTED_LOCALES: SupportedLocale[] = ["zh-CN", "zh-TW", "en-US"];
+export const SUPPORTED_LOCALES: SupportedLocale[] = ["zh-CN", "zh-TW", "en-US", "ar-SA"];
+
+const RTL_LOCALES = new Set<SupportedLocale>(["ar-SA"]);
+
+export function isRtlLocale(locale: string | null | undefined): boolean {
+  if (!locale) return false;
+  return RTL_LOCALES.has(locale as SupportedLocale);
+}
 
 function normalizeLocaleCandidate(
   locale: string | null | undefined,
@@ -32,6 +40,10 @@ function normalizeLocaleCandidate(
 
   if (lower === 'en' || lower.startsWith('en-')) {
     return 'en-US';
+  }
+
+  if (lower === 'ar' || lower.startsWith('ar-') || lower.startsWith('ar_')) {
+    return 'ar-SA';
   }
 
   if (lower === 'zh' || lower.startsWith('zh-')) {
@@ -102,12 +114,14 @@ const i18n = createI18n({
   fallbackLocale: {
     "zh-TW": ["zh-CN", "en-US"],
     "zh-CN": ["en-US"],
+    "ar-SA": ["en-US"],
     default: ["en-US"],
   },
   messages: {
     "zh-CN": zhCN,
     "zh-TW": zhTW,
     "en-US": enUS,
+    "ar-SA": arSA,
   },
 });
 

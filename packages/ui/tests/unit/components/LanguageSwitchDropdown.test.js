@@ -15,7 +15,8 @@ vi.mock('vue-i18n', async (importOriginal) => {
           'settings.languageSwitcher.ariaLabel': `Switch language (${params.language ?? ''})`,
           'settings.languageSwitcher.languages.zh-CN': 'Chinese (Simplified)',
           'settings.languageSwitcher.languages.zh-TW': 'Chinese (Traditional)',
-          'settings.languageSwitcher.languages.en-US': 'English'
+          'settings.languageSwitcher.languages.en-US': 'English',
+          'settings.languageSwitcher.languages.ar-SA': 'Arabic'
         }
 
         return dictionary[key] ?? key
@@ -76,13 +77,15 @@ describe('LanguageSwitchDropdown', () => {
     it('应该通过 locale 提供语言选项文案', () => {
       wrapper = createWrapper()
       const vm = wrapper.vm
-      expect(vm.availableLanguages).toHaveLength(3)
+      expect(vm.availableLanguages).toHaveLength(4)
       expect(vm.availableLanguages[0].key).toBe('zh-CN')
       expect(vm.availableLanguages[0].label).toBe('Chinese (Simplified)')
       expect(vm.availableLanguages[1].key).toBe('zh-TW')
       expect(vm.availableLanguages[1].label).toBe('Chinese (Traditional)')
       expect(vm.availableLanguages[2].key).toBe('en-US')
       expect(vm.availableLanguages[2].label).toBe('English')
+      expect(vm.availableLanguages[3].key).toBe('ar-SA')
+      expect(vm.availableLanguages[3].label).toBe('Arabic')
     })
 
     it('应该通过 locale 生成当前语言提示文案', () => {

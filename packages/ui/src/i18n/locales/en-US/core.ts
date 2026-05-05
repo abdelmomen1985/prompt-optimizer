@@ -148,7 +148,8 @@ const messages = {
       "languages": {
         "zh-CN": "简体中文",
         "zh-TW": "繁體中文",
-        "en-US": "English"
+        "en-US": "English",
+        "ar-SA": "العربية"
       }
     },
     "theme": "Theme Settings",
