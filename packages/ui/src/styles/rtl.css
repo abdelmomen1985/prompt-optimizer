@@ -2,9 +2,12 @@
  * RTL (right-to-left) overrides.
  *
  * The RTL layout is opt-in: <html dir="rtl"> is set by the host apps when an
- * RTL locale (e.g. Arabic) is selected. Most layout flips are already handled
- * by the browser or by Naive UI's RTL config; this file applies additional
- * polish for elements that don't flip automatically.
+ * RTL locale (e.g. Arabic) is selected. Most layout flips are handled
+ * automatically by the browser (e.g. flex-row, inline-start margins) and by
+ * Naive UI's RTL config. Tailwind v4 also uses CSS logical properties for
+ * spacing utilities, so they swap on their own under `dir="rtl"`. This file
+ * therefore stays minimal and only adjusts presentational properties that do
+ * NOT follow the document direction automatically.
  */
 
 [dir="rtl"] body,
@@ -12,24 +15,9 @@
   text-align: start;
 }
 
-/* Make Arabic text render with system fonts that have decent shaping. */
+/* Apply Arabic-friendly system fonts when the document is RTL. */
 [dir="rtl"] {
   font-family:
     "Segoe UI", "Tahoma", "Geeza Pro", "Noto Sans Arabic", "Noto Naskh Arabic",
     "Arial", system-ui, sans-serif;
-}
-
-/* Browsers don't always swap inline-direction icons inside flex rows; ensure
- * a sane default for app-level rows so their start/end edges follow the
- * document direction. */
-[dir="rtl"] .flex-row,
-[dir="rtl"] .flex.flex-row {
-  flex-direction: row-reverse;
-}
-
-/* Tailwind's `space-x-*` utilities use a margin on the right which becomes
- * wrong in RTL. Reset them so adjacent items don't overlap. */
-[dir="rtl"] [class*="space-x-"] > :not([hidden]) ~ :not([hidden]) {
-  margin-left: 0;
-  margin-right: 0;
 }
